@@ -55,6 +55,7 @@ router.delete('/post/:postId', isAuth, interviewController.deletePost);
 
 router.post(
   '/post/:postId/unit',
+  isAuth,
   [
     body('content')
     .trim()
@@ -67,6 +68,7 @@ router.post(
 
 router.put(
   '/post/:postId/unit/:unitId',
+  isAuth,
   [
     body('content')
     .trim()
@@ -77,7 +79,7 @@ router.put(
   unitController.updateUnit
 );
 
-router.delete('/post/:postId/unit/:unitId', unitController.deleteUnit);
+router.delete('/post/:postId/unit/:unitId', isAuth, unitController.deleteUnit);
 
 
 

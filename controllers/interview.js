@@ -10,7 +10,7 @@ const User = require('../models/user');
 
 exports.getPosts = (req, res, next) => {
   const currentPage = req.query.page || 1;
-  const perPage = 4;
+  const perPage = 3;
   let totalItems;
   Post.find()
     .countDocuments()
@@ -87,7 +87,14 @@ exports.createPost = (req, res, next) => {
 
 exports.getPost = (req, res, next) => {
   const postId = req.params.postId;
-  Post.findById(postId).populate("units").then(post => {
+  Post.findById(postId).populate({
+    path: 'units',
+    populate: {
+      path: 'creator',
+      select: ['name', 'email']
+
+    }
+  }).populate('creator', 'name').then(post => {
       if (!post) {
         const error = new Error('Could not find post.');
         error.statusCode = 404;

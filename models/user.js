@@ -15,7 +15,8 @@ const userSchema = new Schema({
     required: true
   },
   uid: {
-    type: String
+    type: String,
+    required: true
   },
   status: {
     type: String,

@@ -32,7 +32,7 @@ exports.createUnit = (req, res, next) => {
         content: content,
         downvotes: downvotes,
         post: postId,
-        creator: req.body.userId,
+        creator: req.userId,
     });
     unit
         .save()
@@ -42,7 +42,7 @@ exports.createUnit = (req, res, next) => {
         .then(post => {
             post.units.push(unit)
             post.save();
-            return User.findById(req.body.userId)
+            return User.findById(req.userId)
         })
         .then(user => {
             creator = user;
@@ -89,7 +89,7 @@ exports.updateUnit = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            if (unit.creator.toString() !== req.body.userId) {
+            if (unit.creator.toString() !== req.userId) {
                 const error = new Error('Not authorized!');
                 error.statusCode = 403;
                 throw error;
@@ -123,7 +123,7 @@ exports.deleteUnit = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            if (unit.creator.toString() !== req.body.userId) {
+            if (unit.creator.toString() !== req.userId) {
                 const error = new Error('Not authorized!');
                 error.statusCode = 403;
                 throw error;
