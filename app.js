@@ -7,6 +7,7 @@ const multer = require('multer');
 
 
 const interviewRoutes = require('./routes/interview');
+const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 
 const app = express();
@@ -55,7 +56,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/interview', interviewRoutes);
+app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
+
 
 
 app.use((error, req, res, next) => {
